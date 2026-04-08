@@ -8,6 +8,8 @@ A ComfyUI custom node that brings a **DAW-style interactive video timeline** dir
 
 ## Features
 
+![Node Controls](examples/ComfyUI-Video-Frame-Extractor--Node.png)
+
 - **Interactive timeline** — filmstrip thumbnails, brightness waveform, and a zoomable timecode ruler all rendered directly inside the node
 - **Loop region selection** — drag the in/out handles or the region body to define start and end frames; the video preview seeks live as you drag
 - **Resizable video preview** — drag the resize handle to make the preview pane as large as you need
