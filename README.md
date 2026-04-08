@@ -2,6 +2,8 @@
 
 A ComfyUI custom node that brings a **DAW-style interactive video timeline** directly into the node graph. Upload any video, scrub through it in real time, drag a loop region to define your extraction window, and pipe the resulting frame batch into any downstream node.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L4L61XEMBR)
+
 ---
 
 ## Features
@@ -152,4 +154,6 @@ Any format supported by your OpenCV build will also work.
 
 ## License
 
-MIT © [comfyuiattic-989](https://github.com/comfyuiattic-989)
+[MIT](LICENSE) © 2026
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L4L61XEMBR)

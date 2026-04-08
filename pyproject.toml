@@ -4,6 +4,7 @@ version = "1.0.0"
 description = "ComfyUI custom node — interactive DAW-style video timeline with real-time frame scrubbing, loop region selection, and batch frame extraction"
 readme = "README.md"
 requires-python = ">=3.9"
+keywords = ["comfyui", "image", "compression", "jpeg", "png", "custom-node"]
 license = { text = "MIT" }
 dependencies = [
     "opencv-python>=4.7",
@@ -13,9 +14,10 @@ dependencies = [
 ]
 
 [project.urls]
+Homepage = "https://github.com/comfyuiattic-989/ComfyUI-Video-Frame-Extractor"
 Repository = "https://github.com/comfyuiattic-989/ComfyUI-Video-Frame-Extractor"
 
 [tool.comfy]
-PublisherId = "comfyuiattic-989"
-DisplayName = "ComfyUI Video Frame Extractor"
+PublisherId = "comfyui-attic"
+DisplayName = "ComfyUI-Video-Frame-Extractor"
 Icon = ""
