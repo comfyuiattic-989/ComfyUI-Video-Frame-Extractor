@@ -68,18 +68,22 @@ def extract_frames(video_path: str, start_frame: int, end_frame: int,
             for i in range(num_frames)
         ]
 
-    frames = [read_single_frame(cap, idx, w, h) for idx in indices]
+    arr = np.empty((len(indices), h, w, 3), dtype=np.uint8)
+    for i, idx in enumerate(indices):
+        arr[i] = read_single_frame(cap, idx, w, h)
     cap.release()
 
-    arr = np.stack(frames, axis=0).astype(np.float32) / 255.0
-    return torch.from_numpy(arr)   # BHWC
+    float_arr = arr.astype(np.float32) / 255.0
+    del arr
+    return torch.from_numpy(float_arr)   # BHWC
 
 
 def frame_as_tensor(video_path: str, frame_index: int) -> torch.Tensor:
     """Return a single frame as a (1, H, W, 3) float32 tensor."""
     cap   = cv2.VideoCapture(video_path)
-    info  = get_video_info(video_path)
-    frame = read_single_frame(cap, frame_index, info["width"], info["height"])
+    w     = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    h     = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    frame = read_single_frame(cap, frame_index, w, h)
     cap.release()
     arr   = frame.astype(np.float32) / 255.0
     return torch.from_numpy(arr).unsqueeze(0)   # 1HWC
@@ -176,9 +180,9 @@ class VideoFrameExtractor:
         frames          = extract_frames(video_path, start_frame, end_frame, num_frames)
         frames_reversed = torch.flip(frames, dims=[0])
 
-        # Single-frame outputs for the loop boundaries
-        first_frame = frame_as_tensor(video_path, start_frame)
-        last_frame  = frame_as_tensor(video_path, end_frame)
+        # Single-frame outputs for the loop boundaries — slice from already-loaded batch
+        first_frame = frames[0:1]
+        last_frame  = frames[-1:]
 
         # Filename prefix — basename without extension
         filename_prefix = os.path.splitext(os.path.basename(video_path))[0]
@@ -224,7 +228,9 @@ try:
             img.thumbnail((640, 360))
             buf = io.BytesIO()
             img.save(buf, format="JPEG", quality=80)
-            return web.Response(body=buf.getvalue(), content_type="image/jpeg")
+            body = buf.getvalue()
+            buf.close()
+            return web.Response(body=body, content_type="image/jpeg")
         except Exception as exc:
             return web.Response(status=500, text=str(exc))
 

@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-video-frame-extractor"
-version = "1.0.1"
-description = "ComfyUI custom node — interactive DAW-style video timeline with real-time frame scrubbing, loop region selection, and batch frame extraction"
+version = "1.1.0"
+description = "ComfyUI custom node that brings a DAW-style interactive video timeline directly into the node graph. Upload any video, scrub through it in real time, drag a loop region to define your extraction window, and pipe the resulting frame batch into any downstream node."
 readme = "README.md"
 requires-python = ">=3.9"
 keywords = ["comfyui", "video", "frame-extraction", "mp4", "custom-node"]
